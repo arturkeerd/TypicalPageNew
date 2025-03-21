@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import Login from './components/Login/Login'
 import MainHeader from './components/MainHeader/MainHeader'
+import Home from './components/Home/Home'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(() => {
@@ -23,6 +24,7 @@ function App() {
   }, []);
 
   const loginHandler = (user, password) => {
+    console.log(user, password);
     const loggedUser = localStorage.setItem('isLoggedUser', JSON.stringify({
       username: user,
       isLogged: true
@@ -33,7 +35,7 @@ function App() {
   const logoutHandler = () => {
     localStorage.removeItem('isLoggedUser');
     setLoggedIn(false);
-}
+  }
   return (
     <Fragment>
       <MainHeader isAuthenticated={loggedIn} onLogout={logoutHandler} />

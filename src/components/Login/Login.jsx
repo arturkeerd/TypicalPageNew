@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Card from '../UI/Card'
 import Button from '../UI/Button'
 
-const Login = () => {
+const Login = (props) => {
   const[enteredEmail, setEnteredEmail] = useState('')
   const[enteredPassword, setEnteredPassword] = useState('')
   const[emailIsValid, setEmailIsValid] = useState()
@@ -15,7 +15,6 @@ const Login = () => {
       console.log('check form is valid')
         setFormIsValid(emailIsValid && passwordIsValid)
         console.log('checked')
-      
     }, 500)
     return () => {
       clearTimeout(timeOut)
@@ -36,7 +35,7 @@ const Login = () => {
   }
 
     const submitHandler = (event) => {
-      event.prevent.Default()
+      event.preventDefault()
       props.onLogin(enteredEmail, enteredPassword)
     }
 
@@ -44,7 +43,7 @@ const Login = () => {
     <Card className="login">
       <form onSubmit={submitHandler}>
         <div className={`control ${emailIsValid === false ? 'invalid' : ''}`}>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input 
             type="email" 
             id="email"
@@ -54,7 +53,7 @@ const Login = () => {
           />
         </div>
         <div className={`control ${passwordIsValid === false ? 'invalid' : ''}`}>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input 
             type="password" 
             id="password"
