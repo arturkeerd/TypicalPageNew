@@ -3,6 +3,8 @@ import Login from './components/Login/Login'
 import MainHeader from './components/MainHeader/MainHeader'
 import Home from './components/Home/Home'
 
+import AuthContext from './store/auth_context'
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(() => {
     if (JSON.parse(localStorage.getItem('isLoggedUser')) !== null) {
@@ -36,15 +38,21 @@ function App() {
     localStorage.removeItem('isLoggedUser');
     setLoggedIn(false);
   }
+
   return (
-    <Fragment>
-      <MainHeader isAuthenticated={loggedIn} onLogout={logoutHandler} />
+    <AuthContext.Provider value={
+      {
+        loggedIn: loggedIn,
+        onLogout: logoutHandler
+      }
+    }>
+      <MainHeader onLogout={logoutHandler}/>
       <main>
         {!loggedIn && <Login onLogin={loginHandler} />}
-        {loggedIn && <Home/>}
+        {loggedIn && <Home />}
       </main>
-    </Fragment>
-  )
+      </AuthContext.Provider>
+      );
 }
 
-export default App;
+      export default App
